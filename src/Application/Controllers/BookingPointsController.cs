@@ -10,30 +10,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class BookingPointsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
         private readonly IMapper _mapper;
 
-        public UsersController(IMediator mediator, IMapper mapper)
+        public BookingPointsController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUserPage([FromQuery] UserFilterModel model)
+        public async Task<IActionResult> GetBookingPoints([FromQuery] BookingPointFilterModel bookingPointFilter)
         {
-            var usersPageResult = await _mediator.Send(new GetUsersQuery(model));
+            var result = await _mediator.Send(new GetBookingPointsQuery(bookingPointFilter));
 
-            var users = _mapper.Map<List<UserEntity>, List<UserViewModel>>(usersPageResult.Items);
+            var bookingPoints = _mapper.Map<List<BookingPointEntity>, List<BookingPointViewModel>>(result.Items);
 
-            return Ok(new { users, usersPageResult.ItemsTotalCount });
+            return Ok(new { bookingPoints, result.ItemsTotalCount });
         }
-
     }
 }

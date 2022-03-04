@@ -14,7 +14,7 @@ namespace Application.ViewModels
 
         public string PhoneNumber { get; set; }
 
-        public string UserImageLink { get; set; }
+        public Guid? UserImageId { get; set; }
 
         public RoleViewModel[] Roles { get; set; }
     }

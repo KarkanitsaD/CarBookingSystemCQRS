@@ -10,14 +10,29 @@ namespace DAL.Repositories
 {
     public class UserRepository : Repository<UserEntity>, IUserRepository
     {
-        public UserRepository(CarBookingSystemContext context) : base(context)
+        public UserRepository(CarBookingSystemContext context) 
+            : base(context)
         {
         }
 
         public async Task<PageResult<UserEntity>> GetPageListAsync(UserFilterModel userFilterModel)
         {
             var result = DbSet.AsQueryable();
+            result = Filter(result, userFilterModel);
 
+            var count = await result.CountAsync();
+
+            result = result.Skip((userFilterModel.PageIndex - 1) * userFilterModel.PageSize)
+                .Take(userFilterModel.PageSize);
+
+            result = result.Include(u => u.UserRoles)
+            .ThenInclude(ur => ur.Role);
+
+            return new PageResult<UserEntity> { Items = await result.ToListAsync(), ItemsTotalCount = count };
+        }
+
+        private IQueryable<UserEntity> Filter(IQueryable<UserEntity> result, UserFilterModel userFilterModel)
+        {
             if (!string.IsNullOrEmpty(userFilterModel.Email))
             {
                 result = result.Where(u => u.Email.StartsWith(userFilterModel.Email));
@@ -45,15 +60,7 @@ namespace DAL.Repositories
                     .Where(u => u.Bookings.Count <= userFilterModel.MaximumNumberOfBookings);
             }
 
-            result = result.Include(u => u.UserRoles)
-                .ThenInclude(ur => ur.Role);
-
-            var items = await result.ToListAsync();
-
-            var count = items.Count;
-
-            return new PageResult<UserEntity>
-            { Items = items.Skip((userFilterModel.PageIndex - 1) * userFilterModel.PageSize).Take(userFilterModel.PageSize), ItemsTotalCount = count };
+            return result;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Application.Extensions
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBookingPointRepository, BookingPointRepository>();
         }
     }
 }
