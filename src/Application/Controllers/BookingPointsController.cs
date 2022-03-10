@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.CQRS.Commands;
 using Application.CQRS.Queries;
 using Application.ViewModels;
 using AutoMapper;
@@ -32,6 +33,12 @@ namespace Application.Controllers
             var bookingPoints = _mapper.Map<List<BookingPointEntity>, List<BookingPointViewModel>>(result.Items);
 
             return Ok(new { bookingPoints, result.ItemsTotalCount });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBookingPoint([FromBody] CreateBookingPointCommand command)
+        {
+            return Ok(await _mediator.Send(command));
         }
     }
 }

@@ -2,8 +2,6 @@
 {
     public class ImageEntity : Entity
     {
-        public string Extension { get; set; }
-
-        public byte[] Content { get; set; }
+        public string Base64Content { get; set; }
     }
 }

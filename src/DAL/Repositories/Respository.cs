@@ -6,14 +6,14 @@ namespace DAL.Repositories
 {
     public class Repository<TEntity> where TEntity : class
     {
-        private readonly CarBookingSystemContext _context;
+        protected readonly CarBookingSystemContext Context;
 
         protected readonly DbSet<TEntity> DbSet;
 
         public Repository(CarBookingSystemContext context)
         {
-            _context = context;
-            DbSet = _context.Set<TEntity>();
+            Context = context;
+            DbSet = Context.Set<TEntity>();
         }
 
         public async Task<TEntity> GetAsync(Guid id)
@@ -25,7 +25,7 @@ namespace DAL.Repositories
         {
             var deletedEntity = DbSet.Remove(entity);
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             return deletedEntity.Entity;
         }
@@ -34,7 +34,7 @@ namespace DAL.Repositories
         {
             var updatedEntity = DbSet.Update(entity);
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             return updatedEntity.Entity;
         }
@@ -43,7 +43,7 @@ namespace DAL.Repositories
         {
             var createdEntity = await DbSet.AddAsync(entity);
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             return createdEntity.Entity;
         }

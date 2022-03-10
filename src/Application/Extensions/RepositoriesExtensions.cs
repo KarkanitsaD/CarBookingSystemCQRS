@@ -12,6 +12,11 @@ namespace Application.Extensions
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBookingPointRepository, BookingPointRepository>();
+            services.AddScoped<IUserImageRepository, UserImageRepository>();
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<ICarImageRepository, CarImageRepository>();
+            services.AddScoped<ICarCarImageRepository, CarCarImageRepository>();
+            services.AddScoped<IExtraServiceRepository, ExtraServiceRepository>();
         }
     }
 }

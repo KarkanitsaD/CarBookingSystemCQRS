@@ -31,6 +31,18 @@ namespace DAL.Repositories
             return new PageResult<UserEntity> { Items = await result.ToListAsync(), ItemsTotalCount = count };
         }
 
+        public async Task<UserEntity> GetUserByEmail(string email)
+        {
+            return await DbSet.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task<UserEntity> GetUserByEmailAndPasswordHash(string email, string passwordHash)
+        {
+            return await DbSet.Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHash);
+        }
+
         private IQueryable<UserEntity> Filter(IQueryable<UserEntity> result, UserFilterModel userFilterModel)
         {
             if (!string.IsNullOrEmpty(userFilterModel.Email))
