@@ -1,4 +1,5 @@
 ﻿using System;
+using Application.Models.RequestModels;
 using MediatR;
 
 namespace Application.CQRS.Commands
@@ -21,6 +22,6 @@ namespace Application.CQRS.Commands
 
         public Guid CarId { get; set; }
 
-        public Guid[] ExtraServicesIdentifiers { get; set; }
+        public ExtraServiceInBookingRequestModel[] ExtraServices { get; set; }
     }
 }

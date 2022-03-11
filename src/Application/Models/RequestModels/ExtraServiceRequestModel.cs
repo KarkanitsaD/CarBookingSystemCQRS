@@ -1,4 +1,6 @@
-﻿namespace Application.Models.RequestModels
+﻿using System;
+
+namespace Application.Models.RequestModels
 {
     public class ExtraServiceCreateBookingPointRequestModel
     {
@@ -9,5 +11,12 @@
         public int MaximumAmountInBooking { get; set; }
 
         public bool IsAvailable { get; set; }
+    }
+
+    public class ExtraServiceInBookingRequestModel
+    {
+        public Guid ExtraServiceId { get; set; }
+
+        public int Amount { get; set; }
     }
 }
