@@ -1,4 +1,8 @@
+using Application.Extensions;
+using Application.Options;
+using Business.Options;
 using DAL;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +25,26 @@ namespace Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Auth
+            services.AddJwtOptions(Configuration);
+            services.AddJwtBearerAuthentication(Configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>());
+            services.AddAuthorizationPolicies();
+
+            //Mapping
+            services.AddAutoMapper(typeof(Startup));
+
+            //Data
             services.AddDbContext<CarBookingSystemContext>(options => options
                 .UseNpgsql(Configuration.GetConnectionString("DbConnectionString")));
+            services.AddRepositories();
 
+            //Business
+            services.AddHttpContextAccessor();
+            services.AddBusinessServices();
+            services.AddMediatR(typeof(Startup));
+
+            //Api
+            services.AddCorsPolicy();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +65,8 @@ namespace Application
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(CorsOptions.ApiCorsName);
 
             app.UseAuthorization();
 

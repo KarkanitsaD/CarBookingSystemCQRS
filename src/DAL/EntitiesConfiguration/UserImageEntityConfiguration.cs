@@ -10,10 +10,7 @@ namespace DAL.EntitiesConfiguration
         {
             builder.HasKey(i => i.Id);
 
-            builder.Property(i => i.Extension)
-                .IsRequired();
-
-            builder.Property(i => i.Content)
+            builder.Property(b => b.Base64Content)
                 .IsRequired();
 
             builder.HasOne(i => i.User)
