@@ -17,6 +17,9 @@ namespace Application.Extensions
             services.AddScoped<ICarImageRepository, CarImageRepository>();
             services.AddScoped<ICarCarImageRepository, CarCarImageRepository>();
             services.AddScoped<IExtraServiceRepository, ExtraServiceRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRoleUserRepository, RoleUserRepository>();
         }
     }
 }

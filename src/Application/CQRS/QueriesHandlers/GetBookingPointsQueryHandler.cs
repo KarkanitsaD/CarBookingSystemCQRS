@@ -17,7 +17,8 @@ namespace Application.CQRS.QueriesHandlers
             _bookingPointRepository = bookingPointRepository;
         }
 
-        public async Task<PageResult<BookingPointEntity>> Handle(GetBookingPointsQuery request, CancellationToken cancellationToken)
+        public async Task<PageResult<BookingPointEntity>> Handle(GetBookingPointsQuery request,
+            CancellationToken cancellationToken)
         {
             return await _bookingPointRepository.GetPageListAsync(request.BookingPointFilterModel);
         }

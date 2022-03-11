@@ -1,5 +1,5 @@
 ﻿using Application.CQRS.Commands;
-using Application.ViewModels;
+using Application.Models.ViewModels;
 using AutoMapper;
 using DAL.Entities;
 

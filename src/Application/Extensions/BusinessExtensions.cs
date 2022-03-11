@@ -8,6 +8,7 @@ namespace Application.Extensions
         public static void AddBusinessServices(this IServiceCollection services)
         {
             services.AddTransient<TokenHelper>();
+            services.AddTransient<BookingPriceCalculatorHelper>();
         }
     }
 }

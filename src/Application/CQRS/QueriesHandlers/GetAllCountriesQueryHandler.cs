@@ -21,7 +21,8 @@ namespace Application.CQRS.QueriesHandlers
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<CountryEntity>> Handle(GetAllCountriesQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<CountryEntity>> Handle(GetAllCountriesQuery request,
+            CancellationToken cancellationToken)
         {
             var countries = _countryRepository.GetAllCountries();
 

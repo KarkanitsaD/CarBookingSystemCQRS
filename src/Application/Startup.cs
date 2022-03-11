@@ -1,4 +1,5 @@
 using Application.Extensions;
+using Application.Options;
 using Business.Options;
 using DAL;
 using MediatR;
@@ -43,6 +44,7 @@ namespace Application
             services.AddMediatR(typeof(Startup));
 
             //Api
+            services.AddCorsPolicy();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -63,6 +65,8 @@ namespace Application
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(CorsOptions.ApiCorsName);
 
             app.UseAuthorization();
 

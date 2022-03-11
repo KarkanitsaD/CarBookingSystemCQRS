@@ -44,7 +44,7 @@ namespace Business.Helpers
 
         private IEnumerable<Claim> GetClaims(UserEntity user)
         {
-            var roles = user.UserRoles.Select(u => new Claim(ClaimTypes.Role, u.Role.Title));
+            var roles = user.UserRoles.Select(u => new Claim(ClaimTypes.Role, u.Role.Title)).ToList();
 
             var claims = new List<Claim>
             {
@@ -53,7 +53,7 @@ namespace Business.Helpers
                 new (ClaimTypes.Name, user.Name),
                 new (ClaimTypes.Surname, user.Surname),
             };
-            claims.AddRange(claims);
+            claims.AddRange(roles);
             return claims;
         }
     }

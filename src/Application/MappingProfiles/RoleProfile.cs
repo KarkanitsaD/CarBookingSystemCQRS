@@ -1,4 +1,4 @@
-﻿using Application.ViewModels;
+﻿using Application.Models.ViewModels;
 using AutoMapper;
 using DAL.Entities;
 

@@ -25,6 +25,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
+        [Route("login")]
         public async Task<IActionResult> LoginUser([FromBody] LoginUserCommand command)
         {
             var result = await _mediator.Send(command);

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.CQRS.Queries;
-using Application.ViewModels;
+using Application.Models.ViewModels;
 using AutoMapper;
 using DAL.Entities;
 using DAL.Query.FilterModels;

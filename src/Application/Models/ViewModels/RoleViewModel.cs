@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.ViewModels
+namespace Application.Models.ViewModels
 {
     public class RoleViewModel
     {

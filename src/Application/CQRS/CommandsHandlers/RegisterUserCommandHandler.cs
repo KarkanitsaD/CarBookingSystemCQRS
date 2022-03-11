@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.CQRS.Commands;
 using Business.Helpers;
+using Business.Options;
 using DAL.Entities;
 using DAL.Repositories.IRepositories;
 using MediatR;
@@ -12,12 +13,19 @@ namespace Application.CQRS.CommandsHandlers
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand>
     {
         private readonly IUserRepository _userRepository;
+
+        private readonly IRoleRepository _roleRepository;
+
+        private readonly IRoleUserRepository _roleUserRepository;
+
         private readonly IUserImageRepository _userImageRepository;
 
-        public RegisterUserCommandHandler(IUserRepository userRepository, IUserImageRepository userImageRepository)
+        public RegisterUserCommandHandler(IUserRepository userRepository, IUserImageRepository userImageRepository, IRoleRepository roleRepository, IRoleUserRepository roleUserRepository)
         {
             _userRepository = userRepository;
             _userImageRepository = userImageRepository;
+            _roleRepository = roleRepository;
+            _roleUserRepository = roleUserRepository;
         }
 
         public async Task<Unit> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -50,6 +58,9 @@ namespace Application.CQRS.CommandsHandlers
 
                 await _userImageRepository.CreateAsync(userImage);
             }
+
+            var role = await _roleRepository.GetRoleByTitleAsync(Roles.UserRole);
+            await _roleUserRepository.CreateAsync(new RoleUserEntity { RoleId = role.Id, UserId = user.Id });
 
             return Unit.Value;
         }

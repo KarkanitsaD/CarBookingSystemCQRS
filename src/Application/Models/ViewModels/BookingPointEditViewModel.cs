@@ -1,4 +1,4 @@
-﻿namespace Application.ViewModels
+﻿namespace Application.Models.ViewModels
 {
     public class BookingPointEditViewModel
     {

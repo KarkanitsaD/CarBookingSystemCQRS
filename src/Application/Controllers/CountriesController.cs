@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Application.CQRS.Commands;
 using Application.CQRS.Queries;
-using Application.ViewModels;
+using Application.Models.ViewModels;
 using AutoMapper;
 using DAL.Entities;
 using MediatR;
