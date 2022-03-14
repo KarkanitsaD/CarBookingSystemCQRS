@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.CQRS.Queries;
 using Application.Models.ViewModels;
@@ -35,5 +36,12 @@ namespace Application.Controllers
             return Ok(new { users, usersPageResult.ItemsTotalCount });
         }
 
+        [HttpGet]
+        [Route("{userId:guid}/image")]
+        public async Task<IActionResult> GetUserImage([FromRoute] Guid userId)
+        {
+            var image = await _mediator.Send(new GetUserImageQuery(userId));
+            return Ok(image);
+        }
     }
 }

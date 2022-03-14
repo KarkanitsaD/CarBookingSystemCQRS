@@ -27,6 +27,7 @@ namespace Business.Helpers
                 new (ClaimTypes.Email, user.Email),
                 new (ClaimTypes.Name, user.Name),
                 new (ClaimTypes.Surname, user.Surname),
+                new (ClaimTypes.MobilePhone, user.PhoneNumber)
             };
             claims.AddRange(claims);
             return claims;

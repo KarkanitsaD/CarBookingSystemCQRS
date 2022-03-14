@@ -1,5 +1,8 @@
-﻿using DAL.Entities;
+﻿using System;
+using System.Threading.Tasks;
+using DAL.Entities;
 using DAL.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -7,6 +10,11 @@ namespace DAL.Repositories
     {
         public UserImageRepository(CarBookingSystemContext context) : base(context)
         {
+        }
+
+        public async Task<UserImageEntity> GetByUserId(Guid userId)
+        {
+            return await DbSet.FirstOrDefaultAsync(i => i.UserId == userId);
         }
     }
 }
