@@ -1,7 +1,11 @@
-﻿namespace Application.Models.ViewModels
+﻿using System;
+
+namespace Application.Models.ViewModels
 {
     public class BookingPointViewModel
     {
+        public Guid Id { get; set; }
+
         public string Title { get; set; }
 
         public string Address { get; set; }

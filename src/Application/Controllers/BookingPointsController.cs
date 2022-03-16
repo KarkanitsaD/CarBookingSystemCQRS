@@ -30,9 +30,9 @@ namespace Application.Controllers
         {
             var result = await _mediator.Send(new GetBookingPointsQuery(bookingPointFilter));
 
-            var bookingPoints = _mapper.Map<List<BookingPointEntity>, List<BookingPointViewModel>>(result.Items);
+            var items = _mapper.Map<List<BookingPointEntity>, List<BookingPointViewModel>>(result.Items);
 
-            return Ok(new { bookingPoints, result.ItemsTotalCount });
+            return Ok(new { items, result.ItemsTotalCount });
         }
 
         [HttpPost]

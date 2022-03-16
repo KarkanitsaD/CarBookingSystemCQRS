@@ -21,10 +21,10 @@ namespace DAL.Repositories
 
             var count = await result.CountAsync();
 
-            result = result.Skip((filterModel.PageIndex - 1) * filterModel.PageSize)
+            result = result.Skip(filterModel.PageIndex * filterModel.PageSize)
                 .Take(filterModel.PageSize);
 
-            result.Include(b => b.City)
+            result = result.Include(b => b.City)
                 .ThenInclude(c => c.Country);
 
             return new PageResult<BookingPointEntity> { Items = await result.ToListAsync(), ItemsTotalCount = count };
@@ -45,7 +45,7 @@ namespace DAL.Repositories
                 .ThenInclude(c => c.Bookings)
                 .Where(p => p.Cars.Count(c => c.Bookings
                     .Count(b => !(b.PickUpTime > filterModel.PickUpTime && b.PickUpTime > filterModel.HandOverTime
-                                  || b.HandOverTime < filterModel.HandOverTime && b.HandOverTime < filterModel.PickUpTime)) > 0) > 0);
+                                  || b.HandOverTime < filterModel.HandOverTime && b.HandOverTime < filterModel.PickUpTime)) == 0) > 0);
 
             return result;
         }
